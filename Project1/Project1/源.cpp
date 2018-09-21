@@ -10,11 +10,18 @@
 #define example7 0		//Geometric transformation 3d
 #define example8 0		//Display mode 2d
 #define example9 0		//Display mode 3d
-#define example10 1		//Geometric representation 3d
-#define example11 0
-#define example12 0
-#define example13 0
+#define example10 0		//Geometric representation 3d
+#define example11 0		//Solar
+#define example12 0		//Color cube
+#define example13 1		//Bolt
 
+
+// Define a constant for the value of PI
+#define GL_PI 3.1415f
+
+// Rotation amounts
+static GLfloat xRot = 0.0f;
+static GLfloat yRot = 0.0f;
 
 #if example1
 GLuint VBO;
@@ -105,14 +112,14 @@ int main(int argc, char ** argv) {
 #endif
 
 #if example2
-void Init()
+void SetupRC()
 {
 	glClearColor(1, 1, 1,0);
 	glMatrixMode(GL_PROJECTION);
 	gluOrtho2D(0, 200, 0, 150);
 }
 
-void DisplayFcn()
+void RenderScene()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 	glColor3f(1, 0, 0);
@@ -141,8 +148,8 @@ int main(int argc,char** argv)
 	glutInitWindowSize(400, 300);
 	glutCreateWindow("example2");
 
-	Init();
-	glutDisplayFunc(DisplayFcn);
+	SetupRC();
+	glutDisplayFunc(RenderScene);
 	glutMainLoop();
 }
 #endif
@@ -372,14 +379,14 @@ void circleMidPoint(GLint xc, GLint yc, GLint radius)
 	}
 }
 
-void Init()
+void SetupRC()
 {
 	glClearColor(1, 1, 1, 0);
 	glMatrixMode(GL_PROJECTION);
 	gluOrtho2D(0, 200, 0, 200);
 }
 
-void DisplayFcn()
+void RenderScene()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 	glColor3f(1, 0, 0);
@@ -400,8 +407,8 @@ int main(int argc, char** argv)
 	glutInitWindowSize(400, 300);
 	glutCreateWindow("circle");
 
-	Init();
-	glutDisplayFunc(DisplayFcn);
+	SetupRC();
+	glutDisplayFunc(RenderScene);
 	glutMainLoop();
 }
 #endif
@@ -409,14 +416,14 @@ int main(int argc, char** argv)
 #endif
 
 #if example4
-void Init()
+void SetupRC()
 {
 	glClearColor(1, 1, 1, 0);
 	glMatrixMode(GL_PROJECTION);
 	gluOrtho2D(0, 200, 0, 150);
 }
 
-void DisplayFcn()
+void RenderScene()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 	glColor3f(1, 0, 0);
@@ -468,8 +475,8 @@ int main(int argc, char** argv)
 	glutInitWindowSize(400, 300);
 	glutCreateWindow("Quad");
 
-	Init();
-	glutDisplayFunc(DisplayFcn);
+	SetupRC();
+	glutDisplayFunc(RenderScene);
 	glutMainLoop();
 }
 #endif
@@ -481,7 +488,7 @@ GLint point[8][3] = { { 0,0,0 },{ 0,1,0 },{ 1,0,0 },{ 1,1,0 },{ 0,0,1 },{ 0,1,1 
 typedef GLint vertex3[3];
 vertex3 pt[8] = { { 0,0,0 },{ 0,1,0 },{ 1,0,0 },{ 1,1,0 },{ 0,0,1 },{ 0,1,1 },{ 1,0,1 },{ 1,1,1 } };
 
-void Init()
+void SetupRC()
 {
 	glClearColor(1, 1, 1, 0);
 	glMatrixMode(GL_MODELVIEW);
@@ -510,7 +517,7 @@ void cube()
 	quad(7, 5, 4, 6);
 }
 
-void DisplayFcn()
+void RenderScene()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 	glColor3f(1, 0, 0);
@@ -532,8 +539,8 @@ int main(int argc, char** argv)
 	glutInitWindowSize(400, 300);
 	glutCreateWindow("cube");
 
-	Init();
-	glutDisplayFunc(DisplayFcn);
+	SetupRC();
+	glutDisplayFunc(RenderScene);
 	glutMainLoop();
 }
 #endif
@@ -602,14 +609,14 @@ void scalePolygon(wcPt2D *verts, GLint nVerts, wcPt2D fixedPt, GLfloat sx, GLflo
 	glEnd();
 }
 
-void Init()
+void SetupRC()
 {
 	glClearColor(1, 1, 1, 0);
 	glMatrixMode(GL_PROJECTION);
 	gluOrtho2D(0, 225, 0, 225);
 }
  
-void DisplayFcn()
+void RenderScene()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 	glColor3f(1, 0, 0);
@@ -633,8 +640,8 @@ int main(int argc, char** argv)
 	glutInitWindowSize(600, 600);
 	glutCreateWindow("translation2d");
 
-	Init();
-	glutDisplayFunc(DisplayFcn);
+	SetupRC();
+	glutDisplayFunc(RenderScene);
 	glutMainLoop();
 }
 #endif
@@ -744,7 +751,7 @@ GLfloat point[8][3] = { { 0,0,0 },{ 0,1,0 },{ 1,0,0 },{ 1,1,0 },{ 0,0,1 },{ 0,1,
 typedef GLfloat vertex3[3];
 vertex3 pt[8] = { { 0,0,0 },{ 0,1,0 },{ 1,0,0 },{ 1,1,0 },{ 0,0,1 },{ 0,1,1 },{ 1,0,1 },{ 1,1,1 } };
 
-void Init()
+void SetupRC()
 {
 	glClearColor(1, 1, 1, 0);
 	glLoadIdentity();
@@ -773,7 +780,7 @@ void matrixMultPoint(Matrix4x4 mat, vertex3 pt)
 	}
 }
 
-void DisplayFcn()
+void RenderScene()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 	glColor3f(1, 0, 0);
@@ -811,8 +818,8 @@ int main(int argc, char** argv)
 	glutInitWindowSize(800, 600);
 	glutCreateWindow("geometric transformation 3d");
 
-	Init();
-	glutDisplayFunc(DisplayFcn);
+	SetupRC();
+	glutDisplayFunc(RenderScene);
 
 	GLint index = glutGetWindow();
 	glutMainLoop();
@@ -828,7 +835,7 @@ protected:
 private:
 };
 
-void Init()
+void SetupRC()
 {
 	glClearColor(1, 1, 1, 0);
 	glMatrixMode(GL_PROJECTION);
@@ -847,7 +854,7 @@ void triangle(wcPt2D *verts)
 	glEnd();
 }
 
-void DisplayFcn()
+void RenderScene()
 {
 	wcPt2D verts[3] = { {-50,-25},{50,-25 },{0,50} };
 
@@ -874,8 +881,8 @@ int main(int argc, char** argv)
 	glutCreateWindow("Display mode");
 	//glutFullScreen();
 
-	Init();
-	glutDisplayFunc(DisplayFcn);
+	SetupRC();
+	glutDisplayFunc(RenderScene);
 
 	glutMainLoop();
 }
@@ -888,7 +895,7 @@ GLfloat xref = 50, yref = 50, zref = 0;	//Look-at point
 GLfloat Vx = 0, Vy = 1, Vz = 0;			//View-up vector
 GLfloat xwMin = -40, ywMin = -60, xwMax = 40, ywMax = 60, dNear = 25, dFar = 125;		//clipping space
 
-void Init()
+void SetupRC()
 {
 	glClearColor(1, 1, 1, 0);
 	glMatrixMode(GL_MODELVIEW);
@@ -898,7 +905,7 @@ void Init()
 	glFrustum(xwMin, xwMax, ywMin, ywMax, dNear, dFar);
 }
 
-void DisplayFcn()
+void RenderScene()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 	glColor3f(0, 1, 0);
@@ -916,7 +923,7 @@ void DisplayFcn()
 	glFlush();
 }
 
-void ReshapeFcn(GLint newWidth, GLint newHeight)
+void ChangeSize(GLint newWidth, GLint newHeight)
 {
 	glViewport(0, 0, newWidth, newHeight);
 
@@ -932,24 +939,24 @@ int main(int argc, char** argv)
 	glutInitWindowSize(winWidth, winHeight);
 	glutCreateWindow("Display mode 3d");
 
-	Init();
-	glutDisplayFunc(DisplayFcn);
-	glutReshapeFunc(ReshapeFcn);
+	SetupRC();
+	glutDisplayFunc(RenderScene);
+	glutReshapeFunc(ChangeSize);
 	glutMainLoop();
 }
 #endif
 
 #if example10
-void Init()
+void SetupRC()
 {
 	//材质反光性设置
 	GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };  //镜面反射参数
 	GLfloat mat_shininess[] = { 50.0 };               //高光指数
 	GLfloat light_position[] = { 10.0, 10.0, 1.0, 0.0 };
 	GLfloat white_light[] = { 1.0, 1.0, 1.0, 1.0 };   //灯位置(1,1,1), 最后1-开关
-	GLfloat Light_Model_Ambient[] = { 0.2, 0.2, 0.2, 1.0 }; //环境光参数
+	GLfloat Light_Model_Ambient[] = { 1, 1, 1, 1.0 }; //环境光参数
 
-	glClearColor(0.0, 0.0, 0.0, 0.0);  //背景色
+	glClearColor(1, 1, 1, 1);  //背景色
 	glShadeModel(GL_SMOOTH);           //多变性填充模式
 
 									   //材质属性
@@ -968,17 +975,17 @@ void Init()
 
 }
 
-void DisplayFcn()
+void RenderScene()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glColor3f(0, 1, 0);
 
 	//glutSolidTeapot(0.5);
 
-	gluLookAt(-2,-2, -2, 0, 0, 0, 0, 1, 0);
+	//gluLookAt(-2,-2, -2, 0, 0, 0, 0, 1, 0);
 
 	glPolygonMode(GL_FRONT, GL_FILL);
-	glPolygonMode(GL_BACK, GL_LINE);
+	//glPolygonMode(GL_BACK, GL_LINE);
 
 	glScalef(1.5, 2, 1);
 	glutWireCube(1);
@@ -998,11 +1005,15 @@ void DisplayFcn()
 	glTranslatef(4.3, -2, 0.5);
 	glutSolidIcosahedron();
 
+	glCullFace(GL_BACK);
+
 	glFlush();
 }
 
-void ReshapeFcn(GLint w, GLint h)
+void ChangeSize(GLint w, GLint h)
 {
+	GLfloat nRange = 10.0f;
+
 	glViewport(0, 0, w, h);
 
 	glMatrixMode(GL_PROJECTION);
@@ -1011,15 +1022,45 @@ void ReshapeFcn(GLint w, GLint h)
 		h = 1;
 	if (w <= h)
 	{
-		glOrtho(-10, 10, -10 * (GLfloat)h / (GLfloat)w, 10 * (GLfloat)h / (GLfloat)w, -20, 20);
+		glOrtho(-nRange, nRange, -nRange * (GLfloat)h / (GLfloat)w, nRange * (GLfloat)h / (GLfloat)w, -nRange, nRange);
 	}
 	else
 	{
-		glOrtho(-10 * (GLfloat)h / (GLfloat)w, 10 * (GLfloat)h / (GLfloat)w, -10, 10, -20, 20);
+		glOrtho(-nRange * (GLfloat)h / (GLfloat)w, nRange * (GLfloat)h / (GLfloat)w, -nRange, nRange, -nRange, nRange);
 	}
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+}
+
+void SpecialKeys(int key, int x, int y)
+{
+	if (key == GLUT_KEY_UP)
+		xRot -= 5.0f;
+
+	if (key == GLUT_KEY_DOWN)
+		xRot += 5.0f;
+
+	if (key == GLUT_KEY_LEFT)
+		yRot -= 5.0f;
+
+	if (key == GLUT_KEY_RIGHT)
+		yRot += 5.0f;
+
+	if (key > 356.0f)
+		xRot = 0.0f;
+
+	if (key < -1.0f)
+		xRot = 355.0f;
+
+	if (key > 356.0f)
+		yRot = 0.0f;
+
+	if (key < -1.0f)
+		yRot = 355.0f;
+
+	// Refresh the Window
+	glutPostRedisplay();
 }
 
 int main(int argc, char** argv)
@@ -1030,183 +1071,533 @@ int main(int argc, char** argv)
 	glutInitWindowSize(500, 500);
 	glutCreateWindow("Display mode 3d");
 
-	Init();
-	glutDisplayFunc(DisplayFcn);
-	glutReshapeFunc(ReshapeFcn);
+	SetupRC();
+	glutSpecialFunc(SpecialKeys);
+	glutDisplayFunc(RenderScene);
+	glutReshapeFunc(ChangeSize);
 	glutMainLoop();
 }
 #endif
 
 #if example11
-GLint winWidth = 600, winHeight = 600;
-GLfloat x0 = 100, y_0 = 50, z0 = 50;		//Viewing-coordinate origin
-GLfloat xref = 50, yref = 50, zref = 0;	//Look-at point
-GLfloat Vx = 0, Vy = 1, Vz = 0;			//View-up vector
-GLfloat xwMin = -40, ywMin = -60, xwMax = 40, ywMax = 60, dNear = 25, dFar = 125;		//clipping space
 
-void Init()
+// Lighting values
+GLfloat  whiteLight[] = { 0.2f, 0.2f, 0.2f, 1.0f };
+GLfloat  sourceLight[] = { 0.8f, 0.8f, 0.8f, 1.0f };
+GLfloat	 lightPos[] = { 0.0f, 0.0f, 0.0f, 1.0f };
+
+void SetupRC()
 {
-	glClearColor(1, 1, 1, 0);
+	// Light values and coordinates
+	glEnable(GL_DEPTH_TEST);	// Hidden surface removal
+	glFrontFace(GL_CCW);		// Counter clock-wise polygons face out
+	glEnable(GL_CULL_FACE);		// Do not calculate inside of jet
+
+								// Enable lighting
+	glEnable(GL_LIGHTING);
+
+	// Setup and enable light 0
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, whiteLight);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, sourceLight);
+	glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
+	glEnable(GL_LIGHT0);
+
+	// Enable color tracking
+	glEnable(GL_COLOR_MATERIAL);
+
+	// Set Material properties to follow glColor values
+	glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
+
+	// Black blue background
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+}
+
+void TimerFunc(int value)
+{
+	glutPostRedisplay();
+	glutTimerFunc(100, TimerFunc, 1);
+}
+
+void RenderScene()
+{
+	static float fMoonRot = 0.0f;
+	static float fEarthRot = 0.0f;
+
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 	glMatrixMode(GL_MODELVIEW);
-	gluLookAt(x0, y_0, z0, xref, yref, zref, Vx, Vy, Vz);
+	glPushMatrix();
+
+	glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
+
+	glTranslatef(0.0f, 0.0f, -300.0f);
+	glColor3f(1, 0, 0);
+	glutSolidSphere(15.0f, 15, 15);
+	glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
+
+	glRotatef(fEarthRot, 0.0f, 1.0f, 0.0f);
+
+	glColor3f(0, 0, 1);
+	glTranslatef(105.f, 0.0f, 0.0f);
+	glutSolidSphere(12.0f, 15, 15);
+
+	glColor3f(1, 1, 1);
+	glRotatef(fMoonRot, 0.0f, 1.0f, 0.0f);
+	glTranslatef(30.0f, 0.0f, 0.0f);
+
+	fMoonRot += 15.0f;
+	if (fMoonRot>360.0f)
+	{
+		fMoonRot -= 360.0f;
+	}
+	glutSolidSphere(6.0f, 15, 15);
+
+	glPopMatrix();
+
+	fEarthRot += 5.0f;
+	if (fEarthRot>360.0f)
+	{
+		fEarthRot -= 360.0f;
+	}
+
+	glutSwapBuffers();
+}
+
+void ChangeSize(GLint w, GLint h)
+{
+	GLfloat fAspect;
+
+	glViewport(0, 0, w, h);
+
+	if (h == 0)
+		h = 1;
+
+	fAspect = (GLfloat)w / (GLfloat)h;
 
 	glMatrixMode(GL_PROJECTION);
-	glFrustum(xwMin, xwMax, ywMin, ywMax, dNear, dFar);
-}
+	glLoadIdentity();
 
-void DisplayFcn()
-{
-	glClear(GL_COLOR_BUFFER_BIT);
-	glColor3f(0, 1, 0);
+	gluPerspective(45.0f, fAspect, 1.0, 425.0);
 
-	glPolygonMode(GL_FRONT, GL_FILL);
-	glPolygonMode(GL_BACK, GL_LINE);
-
-	glBegin(GL_QUADS);
-	glVertex3f(0, 0, 0);
-	glVertex3f(100, 0, 0);
-	glVertex3f(100, 100, 0);
-	glVertex3f(0, 100, 0);
-	glEnd();
-
-	glFlush();
-}
-
-void ReshapeFcn(GLint newWidth, GLint newHeight)
-{
-	glViewport(0, 0, newWidth, newHeight);
-
-	winWidth = newWidth;
-	winHeight = newHeight;
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
 }
 
 int main(int argc, char** argv)
 {
 	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_RGB | GLUT_SINGLE);
-	glutInitWindowPosition(50, 100);
-	glutInitWindowSize(winWidth, winHeight);
-	glutCreateWindow("Display mode 3d");
-
-	Init();
-	glutDisplayFunc(DisplayFcn);
-	glutReshapeFunc(ReshapeFcn);
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
+	glutInitWindowSize(800, 600);
+	glutCreateWindow("Earth/Moon/Sun System");
+	glutReshapeFunc(ChangeSize);
+	glutDisplayFunc(RenderScene);
+	glutTimerFunc(250, TimerFunc, 1);
+	SetupRC();
 	glutMainLoop();
+
+	return 0;
 }
 #endif
 
 #if example12
-GLint winWidth = 600, winHeight = 600;
-GLfloat x0 = 100, y_0 = 50, z0 = 50;		//Viewing-coordinate origin
-GLfloat xref = 50, yref = 50, zref = 0;	//Look-at point
-GLfloat Vx = 0, Vy = 1, Vz = 0;			//View-up vector
-GLfloat xwMin = -40, ywMin = -60, xwMax = 40, ywMax = 60, dNear = 25, dFar = 125;		//clipping space
-
-void Init()
+// Called to draw scene
+void RenderScene(void)
 {
-	glClearColor(1, 1, 1, 0);
-	glMatrixMode(GL_MODELVIEW);
-	gluLookAt(x0, y_0, z0, xref, yref, zref, Vx, Vy, Vz);
+	// Clear the window with current clearing color
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	glMatrixMode(GL_PROJECTION);
-	glFrustum(xwMin, xwMax, ywMin, ywMax, dNear, dFar);
-}
+	glPushMatrix();
 
-void DisplayFcn()
-{
-	glClear(GL_COLOR_BUFFER_BIT);
-	glColor3f(0, 1, 0);
+	glRotatef(xRot, 1.0f, 0.0f, 0.0f);
+	glRotatef(yRot, 0.0f, 1.0f, 0.0f);
 
-	glPolygonMode(GL_FRONT, GL_FILL);
-	glPolygonMode(GL_BACK, GL_LINE);
+	glShadeModel(GL_SMOOTH);
 
+	// Draw six quads
 	glBegin(GL_QUADS);
-	glVertex3f(0, 0, 0);
-	glVertex3f(100, 0, 0);
-	glVertex3f(100, 100, 0);
-	glVertex3f(0, 100, 0);
+	// Front Face
+	// White
+	glColor3ub((GLubyte)255, (GLubyte)255, (GLubyte)255);
+	glVertex3f(50.0f, 50.0f, 50.0f);
+
+	// Yellow
+	glColor3ub((GLubyte)255, (GLubyte)255, (GLubyte)0);
+	glVertex3f(50.0f, -50.0f, 50.0f);
+
+	// Red
+	glColor3ub((GLubyte)255, (GLubyte)0, (GLubyte)0);
+	glVertex3f(-50.0f, -50.0f, 50.0f);
+
+	// Magenta
+	glColor3ub((GLubyte)255, (GLubyte)0, (GLubyte)255);
+	glVertex3f(-50.0f, 50.0f, 50.0f);
+
+
+	// Back Face
+	// Cyan
+	glColor3f(0.0f, 1.0f, 1.0f);
+	glVertex3f(50.0f, 50.0f, -50.0f);
+
+	// Green
+	glColor3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(50.0f, -50.0f, -50.0f);
+
+	// Black
+	glColor3f(0.0f, 0.0f, 0.0f);
+	glVertex3f(-50.0f, -50.0f, -50.0f);
+
+	// Blue
+	glColor3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(-50.0f, 50.0f, -50.0f);
+
+	// Top Face
+	// Cyan
+	glColor3f(0.0f, 1.0f, 1.0f);
+	glVertex3f(50.0f, 50.0f, -50.0f);
+
+	// White
+	glColor3f(1.0f, 1.0f, 1.0f);
+	glVertex3f(50.0f, 50.0f, 50.0f);
+
+	// Magenta
+	glColor3f(1.0f, 0.0f, 1.0f);
+	glVertex3f(-50.0f, 50.0f, 50.0f);
+
+	// Blue
+	glColor3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(-50.0f, 50.0f, -50.0f);
+
+	// Bottom Face
+	// Green
+	glColor3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(50.0f, -50.0f, -50.0f);
+
+	// Yellow
+	glColor3f(1.0f, 1.0f, 0.0f);
+	glVertex3f(50.0f, -50.0f, 50.0f);
+
+	// Red
+	glColor3f(1.0f, 0.0f, 0.0f);
+	glVertex3f(-50.0f, -50.0f, 50.0f);
+
+	// Black
+	glColor3f(0.0f, 0.0f, 0.0f);
+	glVertex3f(-50.0f, -50.0f, -50.0f);
+
+	// Left face
+	// White
+	glColor3f(1.0f, 1.0f, 1.0f);
+	glVertex3f(50.0f, 50.0f, 50.0f);
+
+	// Cyan
+	glColor3f(0.0f, 1.0f, 1.0f);
+	glVertex3f(50.0f, 50.0f, -50.0f);
+
+	// Green
+	glColor3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(50.0f, -50.0f, -50.0f);
+
+	// Yellow
+	glColor3f(1.0f, 1.0f, 0.0f);
+	glVertex3f(50.0f, -50.0f, 50.0f);
+
+	// Right face
+	// Magenta
+	glColor3f(1.0f, 0.0f, 1.0f);
+	glVertex3f(-50.0f, 50.0f, 50.0f);
+
+	// Blue
+	glColor3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(-50.0f, 50.0f, -50.0f);
+
+	// Black
+	glColor3f(0.0f, 0.0f, 0.0f);
+	glVertex3f(-50.0f, -50.0f, -50.0f);
+
+	// Red
+	glColor3f(1.0f, 0.0f, 0.0f);
+	glVertex3f(-50.0f, -50.0f, 50.0f);
 	glEnd();
 
-	glFlush();
-}
+	glPopMatrix();
 
-void ReshapeFcn(GLint newWidth, GLint newHeight)
+	// Show the graphics
+	glutSwapBuffers();
+	}
+
+// This function does any needed initialization on the rendering
+// context. 
+void SetupRC()
 {
-	glViewport(0, 0, newWidth, newHeight);
+	// Black background
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
-	winWidth = newWidth;
-	winHeight = newHeight;
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_DITHER);
+	glShadeModel(GL_SMOOTH);
 }
 
-int main(int argc, char** argv)
+/////////////////////////////////////////////////
+// Get Arrow Keys
+void SpecialKeys(int key, int x, int y)
+{
+	if (key == GLUT_KEY_UP)
+		xRot -= 5.0f;
+
+	if (key == GLUT_KEY_DOWN)
+		xRot += 5.0f;
+
+	if (key == GLUT_KEY_LEFT)
+		yRot -= 5.0f;
+
+	if (key == GLUT_KEY_RIGHT)
+		yRot += 5.0f;
+
+	if (key > 356.0f)
+		xRot = 0.0f;
+
+	if (key < -1.0f)
+		xRot = 355.0f;
+
+	if (key > 356.0f)
+		yRot = 0.0f;
+
+	if (key < -1.0f)
+		yRot = 355.0f;
+
+	// Refresh the Window
+	glutPostRedisplay();
+}
+
+void ChangeSize(int w, int h)
+{
+	GLfloat fAspect;
+
+	// Prevent a divide by zero
+	if (h == 0)
+		h = 1;
+
+	// Set Viewport to window dimensions
+	glViewport(0, 0, w, h);
+
+	// Reset coordinate system
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+
+	fAspect = (GLfloat)w / (GLfloat)h;
+	gluPerspective(35.0f, fAspect, 1.0f, 1000.0f);
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glTranslatef(0.0f, 0.0f, -400.0f);
+}
+
+int main(int argc, char* argv[])
 {
 	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_RGB | GLUT_SINGLE);
-	glutInitWindowPosition(50, 100);
-	glutInitWindowSize(winWidth, winHeight);
-	glutCreateWindow("Display mode 3d");
-
-	Init();
-	glutDisplayFunc(DisplayFcn);
-	glutReshapeFunc(ReshapeFcn);
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
+	glutInitWindowSize(800, 600);
+	glutCreateWindow("RGB Cube");
+	glutReshapeFunc(ChangeSize);
+	glutSpecialFunc(SpecialKeys);
+	glutDisplayFunc(RenderScene);
+	SetupRC();
 	glutMainLoop();
+
+	return 0;
 }
+
 #endif
 
 #if example13
-GLint winWidth = 600, winHeight = 600;
-GLfloat x0 = 100, y_0 = 50, z0 = 50;		//Viewing-coordinate origin
-GLfloat xref = 50, yref = 50, zref = 0;	//Look-at point
-GLfloat Vx = 0, Vy = 1, Vz = 0;			//View-up vector
-GLfloat xwMin = -40, ywMin = -60, xwMax = 40, ywMax = 60, dNear = 25, dFar = 125;		//clipping space
-
-void Init()
+void SetupRC()
 {
-	glClearColor(1, 1, 1, 0);
-	glMatrixMode(GL_MODELVIEW);
-	gluLookAt(x0, y_0, z0, xref, yref, zref, Vx, Vy, Vz);
+	GLfloat  ambientLight[] = { 0.4f, 0.4f, 0.4f, 1.0f };
+	GLfloat  diffuseLight[] = { 0.7f, 0.7f, 0.7f, 1.0f };
+	GLfloat  specular[] = { 0.9f,0.9f,0.9f,1.0f };
+	GLfloat	 lightPos[] = { -50.0f, 200.0f, 200.0f, 1.0f };
+	GLfloat  specref[] = { 0.6f,0.6f,0.6f,1.0f };
 
-	glMatrixMode(GL_PROJECTION);
-	glFrustum(xwMin, xwMax, ywMin, ywMax, dNear, dFar);
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_CULL_FACE);
+	glEnable(GL_LIGHTING);
+
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientLight);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, ambientLight);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuseLight);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, specular);
+	glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
+	glEnable(GL_LIGHT0);
+
+	glEnable(GL_COLOR_MATERIAL);
+	glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
+
+	glMaterialfv(GL_FRONT, GL_SPECULAR, specref);
+	glMateriali(GL_FRONT, GL_SHININESS, 64);
+
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 }
 
-void DisplayFcn()
+void RenderHead(GLfloat diamter, GLfloat height)
 {
-	glClear(GL_COLOR_BUFFER_BIT);
-	glColor3f(0, 1, 0);
+	GLfloat x, y, angle;
+	GLfloat normal[3], corners[4][3];
+	GLfloat step = GL_PI / 3;
 
-	glPolygonMode(GL_FRONT, GL_FILL);
-	glPolygonMode(GL_BACK, GL_LINE);
+	glColor3f(0.0f, 0.0f, 0.7f);
 
-	glBegin(GL_QUADS);
-	glVertex3f(0, 0, 0);
-	glVertex3f(100, 0, 0);
-	glVertex3f(100, 100, 0);
-	glVertex3f(0, 100, 0);
+	glBegin(GL_TRIANGLE_FAN);
+	glNormal3f(0.0f, 0.0f, 1.0f);
+
+	glVertex3f(0.0f, 0.0f, height / 2);
+
+	for (angle = 2 * GL_PI; angle >= 0; angle -= step)
+	{
+		x = diamter*sin(angle);
+		y = diamter*cos(angle);
+		glVertex3f(x, y, height / 2);
+	}
+	glVertex3f(0.0f, diamter, height / 2);
 	glEnd();
 
-	glFlush();
+	glBegin(GL_TRIANGLE_FAN);
+	glNormal3f(0.0f, 0.0f, -1.0f);
+
+	glVertex3f(0.0f, 0.0f, -height / 2);
+
+	for (angle = 0; angle <= 2 * GL_PI; angle += step)
+	{
+		x = diamter*sin(angle);
+		y = diamter*cos(angle);
+		glVertex3f(x, y, -height / 2);
+	}
+	glVertex3f(0.0f, diamter, -height / 2);
+	glEnd();
+
+	glBegin(GL_QUADS);
+	for (angle = 0; angle < 2 * GL_PI; angle += step)
+	{
+		x = diamter*sin(angle);
+		y = diamter*cos(angle);
+
+		corners[0][0] = x;
+		corners[0][1] = y;
+		corners[0][2] = -height / 2;
+
+		corners[1][0] = x;
+		corners[1][1] = y;
+		corners[1][2] = height / 2;
+
+		x = diamter*sin(angle + step);
+		y = diamter*cos(angle + step);
+
+		if (angle + step < 2 * GL_PI)
+		{
+			corners[3][0] = x;
+			corners[3][1] = y;
+			corners[3][2] = -height / 2;
+
+			corners[2][0] = x;
+			corners[2][1] = y;
+			corners[2][2] = height / 2;
+		}
+		else
+		{
+			corners[3][0] = 0;
+			corners[3][1] = diamter;
+			corners[3][2] = -height / 2;
+
+			corners[2][0] = 0;
+			corners[2][1] = diamter;
+			corners[2][2] = height / 2;
+		}
+
+		//calcNormal(corner, normal);
+		glNormal3fv(normal);
 }
 
-void ReshapeFcn(GLint newWidth, GLint newHeight)
+void RenderScene()
 {
-	glViewport(0, 0, newWidth, newHeight);
+	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
-	winWidth = newWidth;
-	winHeight = newHeight;
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+
+	glRotatef(xRot, 1.0f, 0.0f, 0.0f);
+	glRotatef(yRot, 0.0f, 1.0f, 0.0f);
+
+
+
+	glPopMatrix();
+
+	glutSwapBuffers();
 }
 
-int main(int argc, char** argv)
+void SpecialKeys(int key, int x, int y)
+{
+	if (key == GLUT_KEY_UP)
+		xRot -= 5.0f;
+
+	if (key == GLUT_KEY_DOWN)
+		xRot += 5.0f;
+
+	if (key == GLUT_KEY_LEFT)
+		yRot -= 5.0f;
+
+	if (key == GLUT_KEY_RIGHT)
+		yRot += 5.0f;
+
+	if (key > 356.0f)
+		xRot = 0.0f;
+
+	if (key < -1.0f)
+		xRot = 355.0f;
+
+	if (key > 356.0f)
+		yRot = 0.0f;
+
+	if (key < -1.0f)
+		yRot = 355.0f;
+
+	// Refresh the Window
+	glutPostRedisplay();
+}
+
+void ChangeSize(int w, int h)
+{
+	GLfloat fAspect;
+
+	// Prevent a divide by zero
+	if (h == 0)
+		h = 1;
+
+	// Set Viewport to window dimensions
+	glViewport(0, 0, w, h);
+
+	// Reset coordinate system
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+
+	fAspect = (GLfloat)w / (GLfloat)h;
+	gluPerspective(35.0f, fAspect, 1.0f, 1000.0f);
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glTranslatef(0.0f, 0.0f, -400.0f);
+}
+
+int main(int argc, char* argv[])
 {
 	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_RGB | GLUT_SINGLE);
-	glutInitWindowPosition(50, 100);
-	glutInitWindowSize(winWidth, winHeight);
-	glutCreateWindow("Display mode 3d");
-
-	Init();
-	glutDisplayFunc(DisplayFcn);
-	glutReshapeFunc(ReshapeFcn);
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
+	glutInitWindowSize(800, 600);
+	glutCreateWindow("RGB Cube");
+	glutReshapeFunc(ChangeSize);
+	glutSpecialFunc(SpecialKeys);
+	glutDisplayFunc(RenderScene);
+	SetupRC();
 	glutMainLoop();
+
+	return 0;
 }
 #endif
